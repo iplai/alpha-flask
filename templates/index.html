@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Dashboard</title>
+        <title>信息处理平台</title>
         <!-- Mobile specific metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <!-- Force IE9 to render in normal mode -->
@@ -15,7 +15,7 @@
         <link rel='stylesheet' type='text/css'>
         <!--[if lt IE 9]>
 
-<![endif]-->
+        <![endif]-->
         <!-- Css files -->
         <!-- Icons -->
         <link href="assets/css/icons.css" rel="stylesheet" />
@@ -56,26 +56,16 @@
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown"><i class="ec-download"></i><span class="notification">10</span></a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#"><i class="en-database"></i> Database <span class="notification">3</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="st-cube"></i> Packages <span class="notification blue">17</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="st-health"></i> Disconnects <span class="notification yellow">1</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="im-images"></i> Images <span class="notification teal">320</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="st-users"></i> Users <span class="notification orange">2k</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="st-meter"></i> Traffic <span class="notification magenta">2tb</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="im-coin"></i> Finances <span class="notification pink">+3k</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="st-folder"></i> Directories <span class="notification green">17</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="st-bag"></i> Orders <span class="notification purple">12</span></a>
-                                    </li>
-                                    <li><a href="#"><i class="ec-contract"></i> Contracts <span class="notification dark">7</span></a>
-                                    </li>
+                                    <li><a href="#"><i class="en-database"></i> Database <span class="notification">3</span></a></li>
+                                    <li><a href="#"><i class="st-cube"></i> Packages <span class="notification blue">17</span></a></li>
+                                    <li><a href="#"><i class="st-health"></i> Disconnects <span class="notification yellow">1</span></a></li>
+                                    <li><a href="#"><i class="im-images"></i> Images <span class="notification teal">320</span></a></li>
+                                    <li><a href="#"><i class="st-users"></i> Users <span class="notification orange">2k</span></a></li>
+                                    <li><a href="#"><i class="st-meter"></i> Traffic <span class="notification magenta">2tb</span></a></li>
+                                    <li><a href="#"><i class="im-coin"></i> Finances <span class="notification pink">+3k</span></a></li>
+                                    <li><a href="#"><i class="st-folder"></i> Directories <span class="notification green">17</span></a></li>
+                                    <li><a href="#"><i class="st-bag"></i> Orders <span class="notification purple">12</span></a></li>
+                                    <li><a href="#"><i class="ec-contract"></i> Contracts <span class="notification dark">7</span></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -597,12 +587,6 @@
                                                     <!-- End .form-group  -->
                                                     <div class="form-group">
                                                         <div class="col-lg-12">
-                                                            <input type="text" class="form-control tags1" placeholder="Enter tags">
-                                                        </div>
-                                                    </div>
-                                                    <!-- End .form-group  -->
-                                                    <div class="form-group">
-                                                        <div class="col-lg-12">
                                                             <button class="btn btn-default btn-xs">Save Draft</button>
                                                             <button class="btn btn-success btn-xs pull-right">Publish</button>
                                                         </div>
@@ -647,7 +631,7 @@
                                             </div>
                                             <div class="tile-content">
                                                 <div class="number">{{ Institution.objects.count() }}</div>
-                                                <h3>Institutions</h3>
+                                                <h3> New institutions</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -757,34 +741,42 @@
                                     <h4 class="panel-title">机构</h4>
                                 </div>
                                 <div class="panel-body">
+                                    <div class="btn-toolbar" role="toolbar">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-default">抓取全部</button>
+                                        <button type="button" class="btn btn-default">抓取最新</button>
+                                        <button type="button" class="btn btn-default">optional</button>
+                                    </div>
+                                    </div>
+                                    <div class="page-header"></div>
                                     <table class="table display" id="datatable1">
                                         <thead>
                                             <tr>
                                                 <th>机构</th>
-                                                <th>URL</th>
-                                                <th>item xpath</th>
-                                                <th>url xpath</th>
-                                                <th>title xpath</th>
+                                                <th>信息总数</th>
+                                                <th>政策通知</th>
+                                                <th>立项公示</th>
+                                                <th>actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {% for institution in Institution.objects.all() %}
                                             <tr>
                                                 <td>{{ institution.short_name }}</td>
-                                                <td>{{ institution.url }}</td>
-                                                <td>{{ institution.item_xpath }}</td>
-                                                <td class="center">{{ institution.url_xpath }}</td>
-                                                <td class="center">{{ institution.title_xpath }}</td>
+                                                <td>{{ Info.objects(institution=institution).count() }}</td>
+                                                <td>{{ Info.objects(institution=institution, type=1).count() }}</td>
+                                                <td>{{ Info.objects(institution=institution, type=2).count() }}</td>
+                                                <td><a href="{{ institution.url }}" target="_blank" title="前往机构信息发布首页"><i class="fa-external-link"></i></a></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>机构</th>
+                                                <th>信息总数</th>
+                                                <th>政策通知</th>
+                                                <th>立项公示</th>
+                                                <th>actions</th>
                                             </tr>
                                         </tfoot>
                                     </table>

@@ -76,11 +76,6 @@ $('#datatable1').dataTable({
 				"aButtons":    [ "pdf" ]
 			},
 			{
-				"sExtends":    "csv",
-				"sButtonText": '<i class="im-file-xml s16 vat"></i> CSV',
-				"aButtons":    [ "csv" ]
-			},
-			{
 				"sExtends":    "copy",
 				"sButtonText": '<i class="im-copy s16 vat"></i> Copy',
 				"aButtons":    [ "copy" ]

@@ -4,8 +4,6 @@ import datetime
 
 from mongoengine import *
 
-connect('alpha_flask')
-# Create your models here.
 type_choices = (
     (1, '政策通知'),
     (2, '项目公示'),
@@ -33,5 +31,20 @@ class Institution(Document):
     date_created = DateTimeField(default=datetime.datetime.utcnow, required=True)
     date_modified = DateTimeField(default=datetime.datetime.utcnow, required=True)
 
-    def __str__(self):
+    crawl_latest = BooleanField(default=False)
+    crawl_all = BooleanField(default=False)
+    last_crawled = IntField(default=0)
+
+    def __unicode__(self):
         return self.short_name if self.short_name else self.name
+
+
+class Info(Document):
+    title = StringField(max_length=255, verbose_name='标题')
+    url = URLField(verbose_name='URL地址', unique=True)
+    pub_date = DateTimeField()
+    type = IntField(choices=type_choices)
+    institution = ReferenceField(Institution)
+
+    def __unicode__(self):
+        return self.title

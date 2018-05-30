@@ -353,7 +353,7 @@
         };
 
         //toggle sidebar
-        plugin.toggleSidebar = function() {
+        /*plugin.toggleSidebar = function() {
             var toggleButton = $('#toggle-sidebar');
             var toggleIcon = toggleButton.find('i');
             var breakpoint = plugin.getBreakPoint();
@@ -439,7 +439,7 @@
                 }
             }
             toggleIcon.transition({rotate: '-180deg'});
-        };
+        };*/
 
         //toggle right sidebar
         plugin.toggleRightSidebar = function() {
@@ -1190,7 +1190,7 @@ this.bind("mousewheel",fn):this.trigger("mousewheel")},unmousewheel:function(fn)
             jRes.addFunc({
                 breakpoint: 'laptop',
                 enter: function() {
-                    // plugin.showLeftSidebar();
+                    plugin.showLeftSidebar();
                 },
                 exit: function() {
                     
@@ -1199,24 +1199,24 @@ this.bind("mousewheel",fn):this.trigger("mousewheel")},unmousewheel:function(fn)
             jRes.addFunc({
                 breakpoint: 'tablet',
                 enter: function() {
-                    // plugin.hideLeftSidebar();
+                    plugin.hideLeftSidebar();
                     plugin.collapseEmailAppSidebar();
                 },
                 exit: function() {
-                    // plugin.showLeftSidebar();
+                    plugin.showLeftSidebar();
                     plugin.expandEmailAppSidebar();
                 }
             });
             jRes.addFunc({
                 breakpoint: 'phone',
                 enter: function() {
-                    // plugin.hideLeftSidebar();
+                    plugin.hideLeftSidebar();
                     plugin.dropdownMenuFix();
                     plugin.collapseEmailAppSidebar();
                     $('#email-content').addClass('email-content-offCanvas');
                 },
                 exit: function() {
-                    // plugin.showLeftSidebar();
+                    plugin.showLeftSidebar();
                     $('#email-content').removeClass('email-content-offCanvas');
                 }
             });
